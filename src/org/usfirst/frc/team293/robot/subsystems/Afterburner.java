@@ -29,9 +29,9 @@ public class Afterburner extends Subsystem {
 	public Afterburner(){
 		//L_motor = new VictorSP(RobotMap.L_Feeder);
 		//R_motor = new VictorSP(RobotMap.R_Feeder);
-		L_motor = new TalonSRX(2);
+		L_motor = new TalonSRX(6);
 		L_motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		R_motor = new TalonSRX(4);
+		R_motor = new TalonSRX(2);
 		R_motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 	}
 
@@ -43,12 +43,12 @@ public class Afterburner extends Subsystem {
 		//L_motor.set(power);
 		//R_motor.set((-1)*power);
 		L_motor.set(ControlMode.PercentOutput, power);
-		R_motor.set(ControlMode.PercentOutput, (-1)*power);
+		R_motor.set(ControlMode.PercentOutput, power);
 	}
 	public void EncoderShoot(double rpm){
 		//L_motor.set(power);
 		//R_motor.set((-1)*power);
 		L_motor.set(ControlMode.Velocity, rpm);
-		R_motor.set(ControlMode.Velocity, (-1)*rpm);
+		R_motor.set(ControlMode.Velocity, rpm);
 	}
 }

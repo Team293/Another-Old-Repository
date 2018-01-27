@@ -10,6 +10,7 @@ package org.usfirst.frc.team293.robot;
 
 import org.usfirst.frc.team293.robot.commands.AfterburnerAdjustable;
 import org.usfirst.frc.team293.robot.commands.AfterburnerFullThrottle;
+import org.usfirst.frc.team293.robot.commands.AfterburnerRPM;
 import org.usfirst.frc.team293.robot.commands.FeederThrottle;
 import org.usfirst.frc.team293.robot.commands.FeedtoAfterburnerShoot;
 import org.usfirst.frc.team293.robot.commands.StopAfterburner;
@@ -38,11 +39,13 @@ public class OI {
 				   new JoystickButton(leftStick,10),};
 		left[1].whileHeld(new FeederThrottle());
 		left[1].whenReleased(new StopFeeder());
-		left[2].whileHeld(new AfterburnerFullThrottle());
+		left[2].toggleWhenPressed(new AfterburnerFullThrottle());
 		left[2].whenReleased(new StopAfterburner());
 		left[3].whileHeld(new AfterburnerAdjustable());
 		left[3].whenReleased(new StopAfterburner());
-		left[4].whenPressed(new FeedtoAfterburnerShoot());
+		left[4].whileHeld(new AfterburnerRPM());
+		left[4].whenReleased(new StopAfterburner());
+		
 	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
