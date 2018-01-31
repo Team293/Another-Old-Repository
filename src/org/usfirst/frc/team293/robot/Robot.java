@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team293.robot.commands.FeederThrottle;
 import org.usfirst.frc.team293.robot.subsystems.Afterburner;
-import org.usfirst.frc.team293.robot.subsystems.FeederAngle;
+import org.usfirst.frc.team293.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team293.robot.subsystems.FeederShooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,9 +28,10 @@ import org.usfirst.frc.team293.robot.subsystems.FeederAngle;
 public class Robot extends TimedRobot {
 	public static final Afterburner AfterburnerShooter
 			= new Afterburner();
-	public static final FeederAngle Feeder
-			= new FeederAngle();
+	public static final FeederShooter Feeder
+			= new FeederShooter();
 	public static OI m_oi;
+	public static DriveTrain driveTrain = new DriveTrain();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();

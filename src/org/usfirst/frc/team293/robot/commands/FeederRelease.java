@@ -24,9 +24,9 @@ public class FeederRelease extends Command {
     	// Called repeatedly when this Command is scheduled to run
     	@Override
     	protected void execute() {
-    		Robot.Feeder.move(-.5);
+    		Robot.Feeder.shoot(-.5);
     		Timer.delay(3);
-    		Robot.Feeder.move(0);
+    		Robot.Feeder.shoot(0);
     	}
 
     	// Make this return true when this Command no longer needs to run execute()
