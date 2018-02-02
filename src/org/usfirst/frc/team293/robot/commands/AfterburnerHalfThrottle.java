@@ -1,6 +1,5 @@
 package org.usfirst.frc.team293.robot.commands;
 
-import org.usfirst.frc.team293.robot.OI;
 import org.usfirst.frc.team293.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,10 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AfterburnerRPM extends Command {
+public class AfterburnerHalfThrottle extends Command {
 
-    public AfterburnerRPM() {
+    public AfterburnerHalfThrottle() {
         // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     	requires(Robot.AfterburnerShooter);
     }
 
@@ -21,8 +21,7 @@ public class AfterburnerRPM extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.AfterburnerShooter.EncoderShoot((OI.leftStick.getY()) * 500.0 * 4096 / 600);
-    	Robot.AfterburnerShooter.EncoderShoot((OI.leftStick.getY())*9440*4096/600);
+    	Robot.AfterburnerShooter.move(-.7);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -10,6 +10,7 @@ package org.usfirst.frc.team293.robot;
 
 import org.usfirst.frc.team293.robot.commands.AfterburnerAdjustable;
 import org.usfirst.frc.team293.robot.commands.AfterburnerFullThrottle;
+import org.usfirst.frc.team293.robot.commands.AfterburnerHalfThrottle;
 import org.usfirst.frc.team293.robot.commands.AfterburnerRPM;
 import org.usfirst.frc.team293.robot.commands.FeederThrottle;
 import org.usfirst.frc.team293.robot.commands.FeedtoAfterburnerShoot;
@@ -43,8 +44,11 @@ public class OI {
 		left[2].whenReleased(new StopAfterburner());
 		left[3].whileHeld(new AfterburnerAdjustable());
 		left[3].whenReleased(new StopAfterburner());
-		left[4].whileHeld(new AfterburnerRPM());
-		left[4].whenReleased(new StopAfterburner());
+		left[10].whileHeld(new AfterburnerRPM());
+		//left[10].whileHeld(new AfterburnerAdjustable());
+		left[10].whenReleased(new StopAfterburner());
+		left[5].toggleWhenPressed(new AfterburnerHalfThrottle());
+		left[5].whenReleased(new StopAfterburner());
 		
 	}
 	//// CREATING BUTTONS

@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class FeederAngle extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	private VictorSP L_motor, R_motor;
+	private VictorSP  L_motor, R_motor;
 	private TalonSRX Angle_Motor;
 	//private TalonSRX L_motor, R_motor;
 	
@@ -39,7 +39,7 @@ public class FeederAngle extends Subsystem {
 	}
 	public void move(double power){
 		L_motor.set(power);
-		R_motor.set((-1)*power);
+		R_motor.set(power);
 		//L_motor.set(ControlMode.PercentOutput, power);
 		//R_motor.set(ControlMode.PercentOutput, (-1)*power);
 	}

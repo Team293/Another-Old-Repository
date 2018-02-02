@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team293.robot;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -41,6 +42,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
+		PowerDistributionPanel pdp = new PowerDistributionPanel();
+		pdp.clearStickyFaults();
 		m_chooser.addDefault("Default Auto", new FeederThrottle());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -94,6 +97,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -113,6 +117,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Feeder Direction", OI.leftStick.getThrottle());
 		Scheduler.getInstance().run();
 	}
 
