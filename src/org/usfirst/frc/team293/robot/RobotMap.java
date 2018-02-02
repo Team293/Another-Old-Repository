@@ -18,9 +18,13 @@ public class RobotMap {
 	public static int MainMotor = 0;
 	//public static int L_Afterburner = 2,	//Afterburner motors
 	//		R_Afterburner = 4;
-
-public static int L_Feeder = 0,		//Feeder motors
-			R_Feeder = 1,
+	public static int[]   rightDrive={0,1}, 	//Victors
+			leftDrive={2,3};
+	public static int[] leftEncoder={0,1}, 	//Drivetrain Encoders
+			rightEncoder={2,3};
+	public static int imu = 5;
+public static int L_Feeder = 7,		//Feeder motors
+			R_Feeder = 4,
 			Angle_Feeder = 6;
 public static int L_Shooter = 3,
 			R_Shooter = 5;
@@ -33,4 +37,5 @@ public static int L_Shooter = 3,
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
+
 }
