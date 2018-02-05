@@ -31,20 +31,20 @@ public class Afterburner extends Subsystem {
 	public Afterburner(){
 		//L_motor = new VictorSP(RobotMap.L_Feeder);
 		//R_motor = new VictorSP(RobotMap.R_Feeder);
-		L_motor = new TalonSRX(6);
+		L_motor = new TalonSRX(3);
 		L_motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 1000);
 		L_motor.clearStickyFaults(10);
 		L_motor.setSensorPhase(false);
-		L_motor.config_kF(0, .087, 10);
-		L_motor.config_kP(0, .1, 10);
-	//	L_motor.config_kD(0, .1, 0);
+		L_motor.config_kF(0, .0422, 10);
+		L_motor.config_kP(0, .15, 10);
+		L_motor.config_kD(0, .4, 0);
 		R_motor = new TalonSRX(2);
 		R_motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 1000);
 		R_motor.setSensorPhase(true);
 		R_motor.clearStickyFaults(10);
-		R_motor.config_kF(0, .087, 10);
-		R_motor.config_kP(0, .1, 10);
-	//	R_motor.config_kD(0, .1, 0);
+		R_motor.config_kF(0, .0422, 10);
+		R_motor.config_kP(0, .15, 10);
+		R_motor.config_kD(0, .4, 0);
 	}
 
 	public void initDefaultCommand() {

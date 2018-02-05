@@ -22,6 +22,14 @@ public class RobotMap {
 public static int L_Feeder = 0,		//Feeder motors
 			R_Feeder = 1,
 			Angle_Feeder = 6;
+public static int L_Shooter = 3,
+			R_Shooter = 5,
+					imu=5;
+
+public static int[] leftEncoder={0,1}, 	//Drivetrain Encoders
+rightEncoder={2,3};
+public static int[]   rightDrive={0,1}, 	//Victors
+leftDrive={2,3};
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;

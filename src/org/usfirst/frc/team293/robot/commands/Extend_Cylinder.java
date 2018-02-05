@@ -1,6 +1,5 @@
 package org.usfirst.frc.team293.robot.commands;
 
-import org.usfirst.frc.team293.robot.OI;
 import org.usfirst.frc.team293.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,11 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AfterburnerRPM extends Command {
+public class Extend_Cylinder extends Command {
 
-    public AfterburnerRPM() {
+    public Extend_Cylinder() {
         // Use requires() here to declare subsystem dependencies
-    	requires(Robot.AfterburnerShooter);
+        // eg. requires(chassis);
+    	requires(Robot.Pinchy);
     }
 
     // Called just before this Command runs the first time
@@ -21,8 +21,7 @@ public class AfterburnerRPM extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.AfterburnerShooter.EncoderShoot((OI.leftStick.getY()) * 500.0 * 4096 / 600);
-    	Robot.AfterburnerShooter.EncoderShoot(/*OI.leftStick.getY())**/24400);
+    	Robot.Pinchy.pinch();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -37,6 +36,6 @@ public class AfterburnerRPM extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	new StopAfterburner();
+    	new Retract_Cylinder();
     }
 }

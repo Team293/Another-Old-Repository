@@ -7,6 +7,13 @@
 
 package org.usfirst.frc.team293.robot;
 
+import org.usfirst.frc.team293.robot.commands.FeederThrottle;
+import org.usfirst.frc.team293.robot.subsystems.Afterburner;
+import org.usfirst.frc.team293.robot.subsystems.ClimberRelease;
+import org.usfirst.frc.team293.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team293.robot.subsystems.FeederShooter;
+import org.usfirst.frc.team293.robot.subsystems.Pincher;
+
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -14,9 +21,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team293.robot.commands.FeederThrottle;
-import org.usfirst.frc.team293.robot.subsystems.Afterburner;
-import org.usfirst.frc.team293.robot.subsystems.FeederAngle;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,9 +31,17 @@ import org.usfirst.frc.team293.robot.subsystems.FeederAngle;
  */
 public class Robot extends TimedRobot {
 	public static final Afterburner AfterburnerShooter
-			= new Afterburner();
-	public static final FeederAngle Feeder
-			= new FeederAngle();
+	= new Afterburner();
+	public static final FeederShooter Feeder
+	= new FeederShooter();
+	public static final Pincher Pinchy
+	= new Pincher();
+	public static final DriveTrain TrainofDriving
+	=new DriveTrain();
+	//public static final Tank Path
+	//=new Tank();
+	public static final ClimberRelease Release
+	=new ClimberRelease();
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -42,7 +54,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		PowerDistributionPanel pdp = new PowerDistributionPanel();
+		PowerDistributionPanel pdp = new PowerDistributionPanel(62);
 		pdp.clearStickyFaults();
 		m_chooser.addDefault("Default Auto", new FeederThrottle());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -97,7 +109,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		
 		Scheduler.getInstance().run();
 	}
 
