@@ -1,5 +1,7 @@
 package org.usfirst.frc.team293.robot.subsystems;
 
+import org.usfirst.frc.team293.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -13,7 +15,7 @@ public class ClimberRelease extends Subsystem {
 	private Servo Release;
 	
 	public ClimberRelease(){
-		Release = new Servo(8);
+		Release = new Servo(RobotMap.Release);
 	}
 
     public void initDefaultCommand() {

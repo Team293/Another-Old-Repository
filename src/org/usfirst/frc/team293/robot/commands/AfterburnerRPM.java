@@ -9,10 +9,11 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class AfterburnerRPM extends Command {
-
-    public AfterburnerRPM() {
+	private double CodesPer100ms;
+    public AfterburnerRPM(double InputRPM) {
         // Use requires() here to declare subsystem dependencies
     	requires(Robot.AfterburnerShooter);
+    	CodesPer100ms = (InputRPM*24400*4096/600);
     }
 
     // Called just before this Command runs the first time
@@ -21,8 +22,7 @@ public class AfterburnerRPM extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.AfterburnerShooter.EncoderShoot((OI.leftStick.getY()) * 500.0 * 4096 / 600);
-    	Robot.AfterburnerShooter.EncoderShoot(/*OI.leftStick.getY())**/24400);
+    	Robot.AfterburnerShooter.EncoderShoot(CodesPer100ms);
     }
 
     // Make this return true when this Command no longer needs to run execute()

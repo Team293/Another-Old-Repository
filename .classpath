@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="org/usfirst/frc/team293/robot/subsystems/DriveTrain2.java" kind="src" path="src"/>
 	<classpathentry kind="var" path="wpilib" sourcepath="wpilib.sources"/>
 	<classpathentry kind="var" path="networktables" sourcepath="ntcore.sources"/>
 	<classpathentry kind="var" path="opencv" sourcepath="opencv.sources"/>
@@ -11,5 +11,6 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Team293/wpilib/user/java/lib/Pathfinder-Java.jar" sourcepath="C:/Users/Team293/Downloads/Pathfinder-1.5.zip"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/Pathfinder-Java.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Team293/Downloads/ADIS16448-RoboRIO-Driver-2018.2/ADIS16448-RoboRIO-Driver-2018.2/Java/src/main/java/com/analog/adis16448"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

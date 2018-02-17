@@ -8,18 +8,25 @@ package org.usfirst.frc.team293.robot;
  */
 public class RobotMap {
 	
-	public static int MainMotor = 0;
-	//public static int L_Afterburner = 2,	//Afterburner motors
-	//		R_Afterburner = 4;
-	public static int[]   rightDrive={0,1}, 	//Victors
-			leftDrive={2,3};
+	public static int[]   rightDrive={7,8,9}, 	//Victors
+			leftDrive={4,5,6};
+	
 	public static int[] leftEncoder={0,1}, 	//Drivetrain Encoders
 			rightEncoder={2,3};
+	
 	public static int imu = 5;
-public static int L_Feeder = 7,		//Feeder motors
+	public static int FeederLimit = 4;
+	public static int PinchPhotoSwitch = 5;
+	
+	
+	
+	public static int Release = 0;	
+	
+	public static int L_Feeder = 7,		//Feeder motors
 			R_Feeder = 4,
 			Angle_Feeder = 6;
-public static int L_Shooter = 3,
+	
+	public static int L_Shooter = 3,
 			R_Shooter = 5;
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.

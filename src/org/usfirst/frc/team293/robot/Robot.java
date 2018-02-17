@@ -10,10 +10,15 @@ package org.usfirst.frc.team293.robot;
 import org.usfirst.frc.team293.robot.commands.FeederThrottle;
 import org.usfirst.frc.team293.robot.subsystems.Afterburner;
 import org.usfirst.frc.team293.robot.subsystems.ClimberRelease;
+//import org.usfirst.frc.team293.robot.subsystems.ClimberRelease;
 import org.usfirst.frc.team293.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team293.robot.subsystems.FeederSensorsMonitor;
 import org.usfirst.frc.team293.robot.subsystems.FeederShooter;
 import org.usfirst.frc.team293.robot.subsystems.Pincher;
 
+import com.analog.adis16448.frc.ADIS16448_IMU;
+
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -42,7 +47,16 @@ public class Robot extends TimedRobot {
 	//=new Tank();
 	public static final ClimberRelease Release
 	=new ClimberRelease();
+	public static final FeederSensorsMonitor FeedSensors
+	=new FeederSensorsMonitor();
+	public static final PowerDistributionPanel pdp 
+	= new PowerDistributionPanel(62);
+	public static final ADIS16448_IMU imu = new ADIS16448_IMU();
+	public boolean stop = false;
+	//public static final CameraServer DriverFPV
+	//=new CameraServer();
 	public static OI m_oi;
+	
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -54,11 +68,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		PowerDistributionPanel pdp = new PowerDistributionPanel(62);
+		CameraServer.getInstance().startAutomaticCapture();
 		pdp.clearStickyFaults();
-		m_chooser.addDefault("Default Auto", new FeederThrottle());
+		m_chooser.addDefault("Default Auto", m_autonomousCommand);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		Feeder.calibrate(); //moves feeder to reference point (upper limit switch), gets offset angle from encoder
 	}
 
 	/**
@@ -128,9 +143,34 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+	//	if(OI.switch4dn)
+	//	while ((OI.switch4dn.getRawValue()==false) && stop == false){
+			
+		
 		SmartDashboard.putNumber("Feeder Direction", OI.leftStick.getThrottle());
+		SmartDashboard.putNumber("LeftDrive1Current", pdp.getCurrent(15));
+		/*SmartDashboard.putNumber("Gyro-X", imu.getAngleX());
+	    SmartDashboard.putNumber("Gyro-Y", imu.getAngleY());
+	    SmartDashboard.putNumber("Gyro-Z", imu.getAngleZ());
+	    SmartDashboard.putNumber("Gyro-Z", imu.getAngleZ());
+	    
+	    SmartDashboard.putNumber("Accel-Y", imu.getAccelY());
+	    SmartDashboard.putNumber("Accel-Z", imu.getAccelZ());
+	    SmartDashboard.putNumber("Accel-X", imu.getAccelX());
+	    SmartDashboard.putNumber("Pitch", imu.getPitch());
+	    SmartDashboard.putNumber("Roll", imu.getRoll());
+	    SmartDashboard.putNumber("Yaw", imu.getYaw());
+	    
+	    SmartDashboard.putNumber("Pressure: ", imu.getBarometricPressure());
+	    SmartDashboard.putNumber("Temperature: ", imu.getTemperature()); 
+		*/
+		 SmartDashboard.putBoolean("Photoswitch", FeedSensors.getPhotoSwitch());
+		 SmartDashboard.putBoolean("feederupper", Feeder.upperlimit.get());
+		 SmartDashboard.putBoolean("feederlower", Feeder.lowerlimit.get());
+		 SmartDashboard.putBoolean("FeederLimit", FeedSensors.getFeederLimit());
 		Scheduler.getInstance().run();
-	}
+		}
+	
 
 	/**
 	 * This function is called periodically during test mode.

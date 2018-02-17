@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
+
 public class MoveServoJoystick extends Command {
 
     public MoveServoJoystick() {
@@ -40,3 +41,4 @@ public class MoveServoJoystick extends Command {
     protected void interrupted() {
     }
 }
+

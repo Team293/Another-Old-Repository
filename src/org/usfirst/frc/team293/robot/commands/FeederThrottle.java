@@ -15,10 +15,13 @@ import org.usfirst.frc.team293.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
+	
 public class FeederThrottle extends Command {
-	public FeederThrottle() {
+	double rpm;
+	public FeederThrottle(double FeederCP100MS) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.Feeder);
+		rpm = FeederCP100MS;
 	}
 
 	// Called just before this Command runs the first time
@@ -29,7 +32,8 @@ public class FeederThrottle extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.Feeder.moverpm(OI.leftStick.getThrottle()*12200);
+		//Robot.Feeder.moverpm(OI.launchpad.getThrottle()*12200);
+		Robot.Feeder.shoot(rpm);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class FeederAngle extends Command {
-	double position = 0;
-    public FeederAngle(/*double positionToRotateTo*/) {
+	double position;
+    public FeederAngle(double positionToRotateTo) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.Feeder);
-    	//position = positionToRotateTo;
+    	position = positionToRotateTo;
     }
 
     // Called just before this Command runs the first time
@@ -23,12 +23,12 @@ public class FeederAngle extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.Feeder.moveAngular((OI.leftStick.getX()*2048));
+    	Robot.Feeder.moveAngular(position);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (/*Robot.Feeder.isInPosition()*/false);
+        return (Robot.Feeder.isInPosition());
     }
 
     // Called once after isFinished returns true

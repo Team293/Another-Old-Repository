@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class FeedtoAfterburnerShoot extends CommandGroup {
 
     public FeedtoAfterburnerShoot() {
-    	addSequential(new FeederThrottle());
+    	/*addSequential(new FeederThrottle());
         addSequential(new AfterburnerFullThrottle());
         Timer.delay(5);
     	addSequential(new FeederRelease());
     	Timer.delay(3);
     	addSequential(new StopAfterburner());
-    	
+    	*/
     	// Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
