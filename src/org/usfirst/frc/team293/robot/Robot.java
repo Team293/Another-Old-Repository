@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team293.robot;
 
+import org.usfirst.frc.team293.robot.commands.CalibrateFeeder;
 import org.usfirst.frc.team293.robot.commands.FeederThrottle;
 import org.usfirst.frc.team293.robot.subsystems.Afterburner;
 import org.usfirst.frc.team293.robot.subsystems.ClimberRelease;
@@ -59,6 +60,7 @@ public class Robot extends TimedRobot {
 	
 
 	Command m_autonomousCommand;
+	Command calibrationCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	/**
@@ -73,7 +75,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("Default Auto", m_autonomousCommand);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		Feeder.calibrate(); //moves feeder to reference point (upper limit switch), gets offset angle from encoder
+		 //moves feeder to reference point (upper limit switch), gets offset angle from encoder
 	}
 
 	/**
@@ -117,6 +119,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		//new CalibrateFeeder();
 	}
 
 	/**
@@ -133,9 +136,12 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		calibrationCommand = new CalibrateFeeder();
+		calibrationCommand.start();
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		
 	}
 
 	/**
@@ -168,6 +174,7 @@ public class Robot extends TimedRobot {
 		 SmartDashboard.putBoolean("feederupper", Feeder.upperlimit.get());
 		 SmartDashboard.putBoolean("feederlower", Feeder.lowerlimit.get());
 		 SmartDashboard.putBoolean("FeederLimit", FeedSensors.getFeederLimit());
+		 SmartDashboard.putNumber("feederangle", (Robot.Feeder.Angle_motor.getSelectedSensorPosition(0)*11.0/16.0/4096.0*360.0));
 		Scheduler.getInstance().run();
 		}
 	

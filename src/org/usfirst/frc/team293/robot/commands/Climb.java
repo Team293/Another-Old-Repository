@@ -1,20 +1,15 @@
 package org.usfirst.frc.team293.robot.commands;
 
-import org.usfirst.frc.team293.robot.OI;
-import org.usfirst.frc.team293.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class FeederAngle extends Command {
-	double position;
-    public FeederAngle(double positionToRotateTo) {
+public class Climb extends Command {
+
+    public Climb() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.Feeder);
-    	position = positionToRotateTo*-1.0*16.0/11.0*4096.0/360.0;
     }
 
     // Called just before this Command runs the first time
@@ -23,12 +18,11 @@ public class FeederAngle extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.Feeder.moveToPosition(position);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (Robot.Feeder.isInPosition());
+        return false;
     }
 
     // Called once after isFinished returns true

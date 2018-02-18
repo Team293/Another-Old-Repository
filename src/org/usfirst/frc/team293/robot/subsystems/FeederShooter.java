@@ -18,11 +18,12 @@ public class FeederShooter extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	private TalonSRX L_motor, R_motor;
-	private TalonSRX Angle_motor;
+	public TalonSRX Angle_motor;
 	public DigitalInput upperlimit;
 	public DigitalInput lowerlimit;
-	private double position;
+	private double positionTarget;
 	private int absoluteUpperBound;
+	private int upperBoundReset = ((int)((-1.0*50.0*16.0/11.0*4096.0/360.0)+.5));
 	//private TalonSRX L_motor, R_motor;
 	
 	public FeederShooter(){
@@ -51,14 +52,14 @@ public class FeederShooter extends Subsystem {
 		
 		//Set up angle motor for closed loop position control
 		Angle_motor.config_kF(0, 0.0, 10);
-		Angle_motor.config_kP(0, 0.2, 10);
+		Angle_motor.config_kP(0, 0.4, 10);
 		Angle_motor.config_kI(0, 0.0, 10);
 		Angle_motor.config_kD(0, 0.0, 10);
 		
 		Angle_motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0,
 				10);
 		
-		Angle_motor.configAllowableClosedloopError(0, 0, 10);
+		//Angle_motor.configAllowableClosedloopError(0, 0, 10);
 		
 		Angle_motor.setSensorPhase(false);
 		Angle_motor.setInverted(false);
@@ -94,27 +95,65 @@ public class FeederShooter extends Subsystem {
 		//L_motor.set(ControlMode.PercentOutput, power);
 		//R_motor.set(ControlMode.PercentOutput, (-1)*power);
 	}
-	public void calibrate(){
+	public void calibrate(boolean up){
 		//drive arm to upper limit switch
-		double percentage = -.1; //negative is up
-		while (upperlimit.get() == false){
-			Angle_motor.set(ControlMode.PercentOutput, percentage);
+		//double percentage = -.1; //negative is up
+		//if (upperlimit.get() == false){
+		//	Angle_motor.set(ControlMode.PercentOutput, percentage);
+		//	SmartDashboard.putNumber("encoderposition", Angle_motor.getSelectedSensorPosition(0));
+		//}
+		//Angle_motor.set(ControlMode.PercentOutput, 0);
+		//absoluteUpperBound= Angle_motor.getSensorCollection().getPulseWidthPosition();
+		if (up == true){
+			Angle_motor.setSelectedSensorPosition(upperBoundReset, 0, 10);
 		}
-		Angle_motor.set(ControlMode.PercentOutput, 0);
-		absoluteUpperBound= Angle_motor.getSensorCollection().getPulseWidthPosition();
+		else{
+			Angle_motor.setSelectedSensorPosition(0, 0, 10);
+		}
+		//SmartDashboard.putNumber("encoderposition", Angle_motor.getSelectedSensorPosition(0));
+		//return true;
 		//absoluteUpperBound &= 0xFFF;
 		//Angle_motor.setSelectedSensorPosition(absoluteUpperBound, 0, 10);	
 	}
 	
-	public void moveToPosition(int position) {
-		double positions[] = {0, 10, 15, 20, 30}; //list of positions for arm (degrees)
-		double inputRevolutionsToOutputRevolutions = 1.666;
-		double encoderTicksPerRevolution = 4096*inputRevolutionsToOutputRevolutions;
-		double offsetEncoderTicks = absoluteUpperBound-positions[5]*encoderTicksPerRevolution/360;
-		switch (position) {
-		case 1:
+	public void moveToPosition(double position) {
+	//	double positions[] = {0, 10, 15, 20, 30}; //list of positions for arm (degrees)
+	//	double inputRevolutionsToOutputRevolutions = 1.666;
+	//	double encoderTicksPerRevolution = 4096*inputRevolutionsToOutputRevolutions;
+	//	double offsetEncoderTicks = absoluteUpperBound-positions[5]*encoderTicksPerRevolution/360;
+	//	switch (position) {
+	//	case 1:
+		boolean upperLimit = upperlimit.get();
+		boolean lowerLimit = lowerlimit.get();
+		positionTarget = position;
+		if ((upperLimit == true) || (lowerLimit == true)) {
 			
+			if (upperLimit == true){
+					if (positionTarget > Angle_motor.getSelectedSensorPosition(0)){
+						Angle_motor.set(ControlMode.Position, positionTarget);
+					}
+					else{
+						Angle_motor.set(ControlMode.PercentOutput, 0);
+					}
+			}
+			else{
+					if (position < Angle_motor.getSelectedSensorPosition(0)){
+						Angle_motor.set(ControlMode.Position, positionTarget);
+					}
+					else{
+						Angle_motor.set(ControlMode.PercentOutput, 0);
+					}
+				}
+			
+		//Angle_motor.set(ControlMode.Position, position);	
 		}
+		else {
+		//if (upperLimit == false)
+		//if (position > Angle_motor.getSelectedSensorPosition(0)
+			Angle_motor.set(ControlMode.Position, positionTarget);
+			}
+		
+		
 	}
 	public void moveAngular(double position){
 		if ((upperlimit.get() == false) && (lowerlimit.get() == false)) {
@@ -125,7 +164,7 @@ public class FeederShooter extends Subsystem {
 		//SmartDashboard.putNumber("", value)
 	}
 	public boolean isInPosition(){
-		return(Math.abs(Angle_motor.getSelectedSensorPosition(0)-position)<=20);
+		return(Math.abs(Angle_motor.getSelectedSensorPosition(0)-positionTarget)<=20);
 	}
 	public void moverpm(double rpm){
 		L_motor.set(ControlMode.Velocity, rpm);

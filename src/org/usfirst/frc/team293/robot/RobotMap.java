@@ -15,10 +15,10 @@ public class RobotMap {
 			rightEncoder={2,3};
 	
 	public static int imu = 5;
-	public static int FeederLimit = 4;
+	public static int FeederLimit = 7;
 	public static int PinchPhotoSwitch = 5;
 	
-	
+	public static int[] climbMotors={1,2};
 	
 	public static int Release = 0;	
 	

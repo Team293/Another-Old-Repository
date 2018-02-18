@@ -10,10 +10,12 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class FeederRelease extends Command {
-
-    public FeederRelease() {
-        // Use requires() here to declare subsystem dependencies
-    	requires(Robot.Feeder);
+    	double rpm;
+    	public FeederRelease(double FeederCP100MS) {
+    		// Use requires() here to declare subsystem dependencies
+    		requires(Robot.Feeder);
+    		requires(Robot.FeedSensors);
+    		rpm = FeederCP100MS;
     	}
 
     	// Called just before this Command runs the first time
@@ -24,27 +26,27 @@ public class FeederRelease extends Command {
     	// Called repeatedly when this Command is scheduled to run
     	@Override
     	protected void execute() {
-    		Robot.Feeder.shoot(-.5);
-    		Timer.delay(3);
-    		Robot.Feeder.shoot(0);
-    	}
+    		//Robot.Feeder.moverpm(OI.launchpad.getThrottle()*12200);
+    			Robot.Feeder.shoot(rpm);
+    		}
+    	
 
     	// Make this return true when this Command no longer needs to run execute()
     	@Override
-    	protected boolean isFinished() {
-    		return true;
+    	protected boolean isFinished() { 
+    		return (!(Robot.FeedSensors.getFeederLimit()));
     	}
 
     	// Called once after isFinished returns true
     	@Override
     	protected void end() {
-    	
+    		Robot.Feeder.shoot(0);
     	}
 
     	// Called when another command which requires one or more of the same
     	// subsystems is scheduled to run
     	@Override
     	protected void interrupted() {
-    	//	new StopFeeder();
+    		new StopFeeder();
     	}
     }
