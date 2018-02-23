@@ -103,7 +103,7 @@ public class DriveTrain extends Subsystem {
     	
     	double rightRateSetpoint=-rightStick*125; //125
     	SmartDashboard.putNumber("rightRateSetpoint", -rightStick*125);
-    	drive.tankDrive(-(leftRateSetpoint-rightRate)*0.016,-(rightRateSetpoint-leftRate)*0.016);
+    	drive.tankDrive(-(leftRateSetpoint-leftRate)*0.016,-(rightRateSetpoint-rightRate)*0.016);
     	
 
     	
@@ -204,4 +204,3 @@ public class DriveTrain extends Subsystem {
 	}
 
 }
-

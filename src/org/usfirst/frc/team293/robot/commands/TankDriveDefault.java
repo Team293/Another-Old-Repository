@@ -70,6 +70,7 @@ public class TankDriveDefault extends Command {
         		left = -1*OI.leftStick.getY()*OI.leftStick.getY();
     	}
     	*/
+    	//Robot.TrainofDriving.tankdrive(left, right);
     	Robot.TrainofDriving.encoderDrive(-1*(right), -1*(left));
 //    	Robot.TrainofDriving.encoderDrive(-1*(outright), -1*(outleft));
     }

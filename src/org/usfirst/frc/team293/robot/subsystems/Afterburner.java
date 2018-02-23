@@ -40,7 +40,7 @@ public class Afterburner extends Subsystem {
 		L_motor.config_kD(0, .4, 0);
 		R_motor = new TalonSRX(2);
 		R_motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 1000);
-		R_motor.setSensorPhase(true);
+		R_motor.setSensorPhase(false);
 		R_motor.clearStickyFaults(10);
 		R_motor.config_kF(0, .0422, 10);
 		R_motor.config_kP(0, .15, 10);
@@ -65,7 +65,7 @@ public class Afterburner extends Subsystem {
 		//L_motor.set(power);
 		//R_motor.set((-1)*power);
 		
-		L_motor.set(ControlMode.Velocity, rpm);
+		L_motor.set(ControlMode.Velocity, -rpm);
 		//System.out.println("LeftVelocityReadout" + L_motor.getSelectedSensorVelocity(0));
 		R_motor.set(ControlMode.Velocity, rpm);
 		//System.out.println("RightVelocityReadout" + R_motor.getSelectedSensorVelocity(0));

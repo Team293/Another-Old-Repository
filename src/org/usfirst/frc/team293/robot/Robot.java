@@ -16,6 +16,7 @@ import org.usfirst.frc.team293.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team293.robot.subsystems.FeederSensorsMonitor;
 import org.usfirst.frc.team293.robot.subsystems.FeederShooter;
 import org.usfirst.frc.team293.robot.subsystems.Pincher;
+import org.usfirst.frc.team293.robot.subsystems.Winch;
 
 import com.analog.adis16448.frc.ADIS16448_IMU;
 
@@ -52,6 +53,7 @@ public class Robot extends TimedRobot {
 	=new FeederSensorsMonitor();
 	public static final PowerDistributionPanel pdp 
 	= new PowerDistributionPanel(62);
+	public static final Winch Climber = new Winch();
 	public static final ADIS16448_IMU imu = new ADIS16448_IMU();
 	public boolean stop = false;
 	//public static final CameraServer DriverFPV

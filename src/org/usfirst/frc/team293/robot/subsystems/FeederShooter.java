@@ -23,7 +23,7 @@ public class FeederShooter extends Subsystem {
 	public DigitalInput lowerlimit;
 	private double positionTarget;
 	private int absoluteUpperBound;
-	private int upperBoundReset = ((int)((-1.0*50.0*16.0/11.0*4096.0/360.0)+.5));
+	private int upperBoundReset = ((int)((-1.0*105.0*16.0/11.0*512.0/360.0)+.5));
 	//private TalonSRX L_motor, R_motor;
 	
 	public FeederShooter(){
@@ -32,7 +32,7 @@ public class FeederShooter extends Subsystem {
 		L_motor = new TalonSRX(0);
 		L_motor.setSensorPhase(true);
 		R_motor = new TalonSRX(1);
-		R_motor.setSensorPhase(true);
+		R_motor.setSensorPhase(false);
 		Angle_motor = new TalonSRX(5);
 		L_motor.config_kF(0, .08, 10);
 		L_motor.config_kP(0, 0.1, 10);
@@ -53,11 +53,13 @@ public class FeederShooter extends Subsystem {
 		//Set up angle motor for closed loop position control
 		Angle_motor.config_kF(0, 0.0, 10);
 		Angle_motor.config_kP(0, 0.4, 10);
-		Angle_motor.config_kI(0, 0.0, 10);
+		Angle_motor.config_kI(0, 0.05, 10);
 		Angle_motor.config_kD(0, 0.0, 10);
 		
-		Angle_motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0,
-				10);
+		Angle_motor.config_IntegralZone(0, 30, 10);
+		Angle_motor.configMaxIntegralAccumulator(0, 100, 10);
+		
+		Angle_motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 		
 		//Angle_motor.configAllowableClosedloopError(0, 0, 10);
 		
@@ -133,7 +135,7 @@ public class FeederShooter extends Subsystem {
 						Angle_motor.set(ControlMode.Position, positionTarget);
 					}
 					else{
-						Angle_motor.set(ControlMode.PercentOutput, 0);
+						Angle_motor.set(ControlMode.Position, Angle_motor.getSelectedSensorPosition(0));
 					}
 			}
 			else{
@@ -141,7 +143,7 @@ public class FeederShooter extends Subsystem {
 						Angle_motor.set(ControlMode.Position, positionTarget);
 					}
 					else{
-						Angle_motor.set(ControlMode.PercentOutput, 0);
+						Angle_motor.set(ControlMode.Position, Angle_motor.getSelectedSensorPosition(0));
 					}
 				}
 			

@@ -8,7 +8,8 @@ package org.usfirst.frc.team293.robot;
  */
 public class RobotMap {
 	
-	public static int[]   rightDrive={7,8,9}, 	//Victors
+	public static int[]   
+			rightDrive={7,8,9}, 	//Victors
 			leftDrive={4,5,6};
 	
 	public static int[] leftEncoder={0,1}, 	//Drivetrain Encoders

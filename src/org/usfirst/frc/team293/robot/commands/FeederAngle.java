@@ -14,7 +14,7 @@ public class FeederAngle extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.Feeder);
-    	position = positionToRotateTo*-1.0*16.0/11.0*4096.0/360.0;
+    	position = positionToRotateTo*-1.0*16.0/11.0*512.0/360.0;
     }
 
     // Called just before this Command runs the first time
