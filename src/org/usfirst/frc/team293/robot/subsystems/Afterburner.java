@@ -65,9 +65,9 @@ public class Afterburner extends Subsystem {
 		//L_motor.set(power);
 		//R_motor.set((-1)*power);
 		
-		L_motor.set(ControlMode.Velocity, -rpm);
+		L_motor.set(ControlMode.Velocity, rpm);
 		//System.out.println("LeftVelocityReadout" + L_motor.getSelectedSensorVelocity(0));
-		R_motor.set(ControlMode.Velocity, rpm);
+		R_motor.set(ControlMode.Velocity, -rpm);
 		//System.out.println("RightVelocityReadout" + R_motor.getSelectedSensorVelocity(0));
 		//System.out.println("RPM Control!" );
 	}

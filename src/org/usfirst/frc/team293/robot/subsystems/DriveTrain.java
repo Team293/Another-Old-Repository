@@ -98,10 +98,10 @@ public class DriveTrain extends Subsystem {
     	SmartDashboard.putNumber("rightEncoder", -rightEncoder.getRate()/1000);
     	//PigeonIMU.FusionStatus fusionStatus = new PigeonIMU.FusionStatus();
     	//SmartDashboard.putNumber("Pigeon", imu.getFusedHeading(fusionStatus));
-    	double leftRateSetpoint=-leftStick*125; //125
+    	double leftRateSetpoint=-leftStick*50; //125
     	SmartDashboard.putNumber("leftRateSetpoint", -leftStick*125);
     	
-    	double rightRateSetpoint=-rightStick*125; //125
+    	double rightRateSetpoint=-rightStick*50; //125
     	SmartDashboard.putNumber("rightRateSetpoint", -rightStick*125);
     	drive.tankDrive(-(leftRateSetpoint-leftRate)*0.016,-(rightRateSetpoint-rightRate)*0.016);
     	
