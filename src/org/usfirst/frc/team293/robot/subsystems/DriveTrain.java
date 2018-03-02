@@ -63,8 +63,11 @@ public class DriveTrain extends Subsystem {
 		leftEncoder= new Encoder(RobotMap.leftEncoder[0],RobotMap.leftEncoder[1]);	//creates encoder with fast sampling and true or false for direction
 		rightEncoder= new Encoder(RobotMap.rightEncoder[0],RobotMap.rightEncoder[1]);
 		
-		leftEncoder.setDistancePerPulse(256/(3.14*4));//the amount of ticks to in...still have to find this from P
-		rightEncoder.setDistancePerPulse(256/(3.14*4));//the amount of ticks to in...still have to find this from P
+		//leftEncoder.setDistancePerPulse(256/(3.14*4));//the amount of ticks to in...still have to find this from P
+		//rightEncoder.setDistancePerPulse(256/(3.14*4));//the amount of ticks to in...still have to find this from P
+		
+		leftEncoder.setDistancePerPulse(3.14/(256.0*3.0));//the amount of ticks to in...still have to find this from P
+		rightEncoder.setDistancePerPulse(3.14/(256.0*3.0));//the amount of ticks to in...still have to find this from P
 		
 		leftEncoder.setSamplesToAverage(30);
 		rightEncoder.setSamplesToAverage(30);
@@ -92,18 +95,24 @@ public class DriveTrain extends Subsystem {
     
     
     public void encoderDrive(double leftStick ,double rightStick){
-    	double leftRate=leftEncoder.getRate()/1000;
-    	double rightRate=-rightEncoder.getRate()/1000;
-    	SmartDashboard.putNumber("leftEncoder", leftEncoder.getRate()/1000);
-    	SmartDashboard.putNumber("rightEncoder", -rightEncoder.getRate()/1000);
-    	//PigeonIMU.FusionStatus fusionStatus = new PigeonIMU.FusionStatus();
-    	//SmartDashboard.putNumber("Pigeon", imu.getFusedHeading(fusionStatus));
-    	double leftRateSetpoint=-leftStick*50; //125
+    	
+    	//double leftRate=leftEncoder.getRate()/1000;
+    	//double rightRate=-rightEncoder.getRate()/1000;
+    	double leftRate=leftEncoder.getRate();
+    	double rightRate=-rightEncoder.getRate();
+    	SmartDashboard.putNumber("leftEncoder", leftRate);
+    	SmartDashboard.putNumber("rightEncoder", rightRate);
+    	PigeonIMU.FusionStatus fusionStatus = new PigeonIMU.FusionStatus();
+    	SmartDashboard.putNumber("Pigeon", imu.getFusedHeading(fusionStatus));
+    	//SmartDashboard.putNumber("rightEncoderdpp", rightEncoder.getDistancePerPulse());
+    	//SmartDashboard.putNumber("rightEncoder", rightEncoder.getDistance());
+    	double leftRateSetpoint=-leftStick*10; //125
     	SmartDashboard.putNumber("leftRateSetpoint", -leftStick*125);
     	
-    	double rightRateSetpoint=-rightStick*50; //125
+    	double rightRateSetpoint=-rightStick*10; //125
     	SmartDashboard.putNumber("rightRateSetpoint", -rightStick*125);
-    	drive.tankDrive(-(leftRateSetpoint-leftRate)*0.016,-(rightRateSetpoint-rightRate)*0.016);
+    	//drive.tankDrive(-(leftRateSetpoint-leftRate)*0.016,-(rightRateSetpoint-rightRate)*0.016);
+    	drive.tankDrive(-(leftRateSetpoint-leftRate)*0.319,-(rightRateSetpoint-rightRate)*0.319);
     	
 
     	

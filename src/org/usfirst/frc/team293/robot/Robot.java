@@ -15,16 +15,19 @@ import org.usfirst.frc.team293.robot.subsystems.ClimberRelease;
 import org.usfirst.frc.team293.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team293.robot.subsystems.FeederSensorsMonitor;
 import org.usfirst.frc.team293.robot.subsystems.FeederShooter;
+import org.usfirst.frc.team293.robot.subsystems.LEDs;
 import org.usfirst.frc.team293.robot.subsystems.Pincher;
 import org.usfirst.frc.team293.robot.subsystems.Winch;
 
 import com.analog.adis16448.frc.ADIS16448_IMU;
 
+import Autonomouses.ForwardDrive;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -54,6 +57,7 @@ public class Robot extends TimedRobot {
 	public static final PowerDistributionPanel pdp 
 	= new PowerDistributionPanel(62);
 	public static final Winch Climber = new Winch();
+	public static final LEDs LED= new LEDs();
 	public static final ADIS16448_IMU imu = new ADIS16448_IMU();
 	public boolean stop = false;
 	//public static final CameraServer DriverFPV
@@ -75,7 +79,7 @@ public class Robot extends TimedRobot {
 		CameraServer.getInstance().startAutomaticCapture();
 		pdp.clearStickyFaults();
 		m_chooser.addDefault("Default Auto", m_autonomousCommand);
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		m_chooser.addObject("My Auto", new ForwardDrive());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		 //moves feeder to reference point (upper limit switch), gets offset angle from encoder
 	}

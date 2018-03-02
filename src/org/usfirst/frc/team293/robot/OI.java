@@ -95,7 +95,7 @@ public class OI {
 		//button10.whenPressed(new AfterburnerShoot());
 		button10.whenPressed(new AfterburnerRPM(1));
 		button10.whenReleased(new StopAfterburner());
-		button11.whenPressed(new AfterburnerRPM(.8));
+		//button11.whenPressed(new LEDsTest());
 		button11.whenReleased(new StopAfterburner());
 		button12.whenPressed(new AfterburnerRPM(.4));
 		button12.whenReleased(new StopAfterburner());
