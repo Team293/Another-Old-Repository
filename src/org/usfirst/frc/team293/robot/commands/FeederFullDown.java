@@ -26,13 +26,13 @@ public class FeederFullDown extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//Robot.Feeder.calibrate();
-    	Robot.Feeder.Angle_motor.set(ControlMode.PercentOutput, 0.3);	
+    	Robot.Feeder.Angle_motor.set(ControlMode.PercentOutput, -0.5);	
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if (Robot.Feeder.lowerlimit.get() == true){
+        if (Robot.Feeder.lowerlimit.get() == false){
         	Robot.Feeder.Angle_motor.set(ControlMode.Position, Robot.Feeder.Angle_motor.getSelectedSensorPosition(0));
     	return (true);
         }

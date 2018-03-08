@@ -4,6 +4,7 @@ import org.usfirst.frc.team293.robot.OI;
 import org.usfirst.frc.team293.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -24,6 +25,7 @@ public class MoveServoJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.Release.move(OI.rightStick.getThrottle());
+    	SmartDashboard.putNumber("servo", OI.rightStick.getThrottle());
     	
     }
 

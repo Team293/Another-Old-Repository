@@ -9,7 +9,7 @@ import org.usfirst.frc.team293.robot.commands.CalibrateFeeder;
 import org.usfirst.frc.team293.robot.commands.Climb;
 import org.usfirst.frc.team293.robot.commands.Extend_Cylinder;
 import org.usfirst.frc.team293.robot.commands.Feed;
-import org.usfirst.frc.team293.robot.commands.FeedToExchange;
+//import org.usfirst.frc.team293.robot.commands.FeedToExchange;
 import org.usfirst.frc.team293.robot.commands.FeedToUpperPosition;
 import org.usfirst.frc.team293.robot.commands.FeederAngle;
 import org.usfirst.frc.team293.robot.commands.FeederFullDown;
@@ -18,6 +18,8 @@ import org.usfirst.frc.team293.robot.commands.FeederRPM;
 import org.usfirst.frc.team293.robot.commands.FeederRelease;
 import org.usfirst.frc.team293.robot.commands.FeederThrottle;
 import org.usfirst.frc.team293.robot.commands.FeedtoAfterburnerShoot;
+import org.usfirst.frc.team293.robot.commands.ReleaseArm;
+import org.usfirst.frc.team293.robot.commands.ResetServo;
 import org.usfirst.frc.team293.robot.commands.Retract_Cylinder;
 //import org.usfirst.frc.team293.robot.commands.MoveServoJoystick;
 import org.usfirst.frc.team293.robot.commands.StopAfterburner;
@@ -36,6 +38,7 @@ public class OI {
 	public static Joystick leftStick = new Joystick(0);
 	public static Joystick rightStick = new Joystick(1);
 	public static Joystick launchpad=new Joystick(2);
+	public static Joystick launchpad2=new Joystick(3);
 	public OI(){
 		JoystickButton[] left= {null,new JoystickButton(leftStick,1), 
 				   new JoystickButton(leftStick,2), 
@@ -69,6 +72,18 @@ public class OI {
 		JoystickButton button10=new JoystickButton(launchpad, 10);
 		JoystickButton button11=new JoystickButton(launchpad, 11);
 		JoystickButton button12=new JoystickButton(launchpad, 12);
+		JoystickButton button21=new JoystickButton(launchpad2, 1);
+		JoystickButton button22=new JoystickButton(launchpad2, 2);
+		JoystickButton button23=new JoystickButton(launchpad2, 3);
+		JoystickButton button24=new JoystickButton(launchpad2, 4);
+		JoystickButton button25=new JoystickButton(launchpad2, 5);
+		JoystickButton button26=new JoystickButton(launchpad2, 6);
+		JoystickButton button27=new JoystickButton(launchpad2, 7);
+		JoystickButton button28=new JoystickButton(launchpad2, 8);
+		JoystickButton button29=new JoystickButton(launchpad2, 9);	
+		JoystickButton button210=new JoystickButton(launchpad2, 10);
+		JoystickButton button211=new JoystickButton(launchpad2, 11);
+		JoystickButton button212=new JoystickButton(launchpad2, 12);
 		//left[1].whenReleased(new StopFeeder());
 		//left[2].toggleWhenPressed(new AfterburnerFullThrottle());
 		//left[2].whenReleased(new StopAfterburner());
@@ -80,12 +95,12 @@ public class OI {
 		//left[5].whenPressed(new CalibrateFeeder());
 		//button1.whenPressed(new FeedToExchange());
 		//button7.toggleWhenPressed(new AfterburnerFullThrottle());
-		button4.whenPressed(new FeederAngle(0));
+		button4.whenPressed(new FeederFullDown());
 		button6.whenPressed(new FeederFullUp());
-		button2.whenPressed(new FeederAngle(60));
+		button2.whenPressed(new FeederAngle(0));
 		//button3.whileHeld(new FeedToUpperPosition());
-		button3.whileHeld(new FeederThrottle(1));
-		button5.whileHeld(new FeederRelease(-1));
+		button5.whileHeld(new FeederThrottle(1));
+		button3.whileHeld(new FeederRelease(-1));
 		button5.whenReleased(new StopFeeder());
 		button3.whenReleased(new StopFeeder());
 		button1.whileHeld(new Extend_Cylinder());
@@ -103,6 +118,8 @@ public class OI {
 		button8.whenReleased(new StopClimbing());
 		button7.whileHeld(new Unclimb());
 		button7.whenReleased(new StopClimbing());
+		button211.whenPressed(new ReleaseArm());
+		button212.whenPressed(new ResetServo());
 		
 		
 		//right[1].whileHeld(new MoveServoJoystick());

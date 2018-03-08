@@ -34,9 +34,9 @@ public class FeederThrottle extends Command {
 	@Override
 	protected void execute() {
 		//Robot.Feeder.moverpm(OI.launchpad.getThrottle()*12200);
-		if (Robot.FeedSensors.getFeederLimit()==true){
+		//if (Robot.FeedSensors.getFeederLimit()==true){
 			Robot.Feeder.shoot(rpm);
-		}
+		//}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

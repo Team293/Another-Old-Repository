@@ -1,8 +1,7 @@
 package org.usfirst.frc.team293.robot.commands;
 
+import org.usfirst.frc.team293.robot.OI;
 import org.usfirst.frc.team293.robot.Robot;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -10,43 +9,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class CalibrateFeeder extends Command {
 
-    public CalibrateFeeder() {
+public class ReleaseArm extends Command {
+
+    public ReleaseArm() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.Feeder);
-    	requires(Robot.Pinchy);
+    	requires(Robot.Release);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	SmartDashboard.putBoolean("Calibrating", true);
-    	Robot.Pinchy.unpinch();
-    	Robot.Feeder.Angle_motor.set(ControlMode.PercentOutput, 0.2);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.Feeder.calibrate();
-    	
-    	
+    	Robot.Release.move(.8);
+    	SmartDashboard.putNumber("servo", .8);
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if (Robot.Feeder.upperlimit.get() == false){
-        Robot.Feeder.Angle_motor.set(ControlMode.PercentOutput, 0);	
-    	return (true);
-        }
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.Feeder.calibrate(true);
-    	SmartDashboard.putBoolean("Calibrating", false);
     }
 
     // Called when another command which requires one or more of the same
@@ -54,3 +43,4 @@ public class CalibrateFeeder extends Command {
     protected void interrupted() {
     }
 }
+

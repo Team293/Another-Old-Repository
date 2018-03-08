@@ -1,6 +1,7 @@
 package org.usfirst.frc.team293.robot.subsystems;
 
 import org.usfirst.frc.team293.robot.RobotMap;
+import org.usfirst.frc.team293.robot.commands.MoveServoJoystick;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,7 +21,8 @@ public class ClimberRelease extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+       // setDefaultCommand(new MoveServoJoystick());
+    	
     }
     public void move(double angle){
     	Release.set(angle);

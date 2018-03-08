@@ -13,19 +13,19 @@ public class FeederSensorsMonitor extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	DigitalInput Feederlimit;
-	DigitalInput PinchPhotoSwitch;
+	//DigitalInput PinchPhotoSwitch;
 	public FeederSensorsMonitor(){
 		Feederlimit = new DigitalInput(RobotMap.FeederLimit);
-		PinchPhotoSwitch = new DigitalInput(RobotMap.PinchPhotoSwitch);
+	//	PinchPhotoSwitch = new DigitalInput(RobotMap.PinchPhotoSwitch);
 	}
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-    public boolean getPhotoSwitch(){
-    	return(PinchPhotoSwitch.get());
-    }
+   // public boolean getPhotoSwitch(){
+    	//return(PinchPhotoSwitch.get());
+   // }
     public boolean getFeederLimit(){
     	return(Feederlimit.get());
     }

@@ -12,7 +12,7 @@ public class RobotMap {
 			rightDrive={7,8,9}, 	//Victors
 			leftDrive={4,5,6};
 	
-	public static int[] leftEncoder={0,1}, 	//Drivetrain Encoders
+	public static int[] leftEncoder={0, 1}, 	//Drivetrain Encoders
 			rightEncoder={2,3};
 	
 	public static int imu = 5;

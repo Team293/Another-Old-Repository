@@ -15,7 +15,7 @@ import org.usfirst.frc.team293.robot.subsystems.ClimberRelease;
 import org.usfirst.frc.team293.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team293.robot.subsystems.FeederSensorsMonitor;
 import org.usfirst.frc.team293.robot.subsystems.FeederShooter;
-import org.usfirst.frc.team293.robot.subsystems.LEDs;
+//import org.usfirst.frc.team293.robot.subsystems.LEDs;
 import org.usfirst.frc.team293.robot.subsystems.Pincher;
 import org.usfirst.frc.team293.robot.subsystems.Winch;
 
@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
 	public static final PowerDistributionPanel pdp 
 	= new PowerDistributionPanel(62);
 	public static final Winch Climber = new Winch();
-	public static final LEDs LED= new LEDs();
+//	public static final LEDs LED= new LEDs();
 	public static final ADIS16448_IMU imu = new ADIS16448_IMU();
 	public boolean stop = false;
 	//public static final CameraServer DriverFPV
@@ -176,11 +176,11 @@ public class Robot extends TimedRobot {
 	    SmartDashboard.putNumber("Pressure: ", imu.getBarometricPressure());
 	    SmartDashboard.putNumber("Temperature: ", imu.getTemperature()); 
 		*/
-		 SmartDashboard.putBoolean("Photoswitch", FeedSensors.getPhotoSwitch());
+		// SmartDashboard.putBoolean("Photoswitch", FeedSensors.getPhotoSwitch());
 		 SmartDashboard.putBoolean("feederupper", Feeder.upperlimit.get());
 		 SmartDashboard.putBoolean("feederlower", Feeder.lowerlimit.get());
 		 SmartDashboard.putBoolean("FeederLimit", FeedSensors.getFeederLimit());
-		 SmartDashboard.putNumber("feederangle", (Robot.Feeder.Angle_motor.getSelectedSensorPosition(0)*11.0/16.0/4096.0*360.0));
+		 SmartDashboard.putNumber("feederangle", (Robot.Feeder.Angle_motor.getSelectedSensorPosition(0)/2048.0*360.0));
 		Scheduler.getInstance().run();
 		}
 	

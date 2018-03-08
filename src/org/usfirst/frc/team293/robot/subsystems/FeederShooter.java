@@ -23,7 +23,7 @@ public class FeederShooter extends Subsystem {
 	public DigitalInput lowerlimit;
 	private double positionTarget;
 	private int absoluteUpperBound;
-	private int upperBoundReset = ((int)((-1.0*105.0*16.0/11.0*512.0/360.0)+.5));
+	private int upperBoundReset = ((int)((1.0*105.0*2048.0/360.0)+.5));
 	//private TalonSRX L_motor, R_motor;
 	
 	public FeederShooter(){
@@ -53,7 +53,7 @@ public class FeederShooter extends Subsystem {
 		//Set up angle motor for closed loop position control
 		Angle_motor.config_kF(0, 0.0, 10);
 		Angle_motor.config_kP(0, 0.4, 10);
-		Angle_motor.config_kI(0, 0.05, 10);
+		Angle_motor.config_kI(0, 0, 10);
 		Angle_motor.config_kD(0, 0.0, 10);
 		
 		Angle_motor.config_IntegralZone(0, 30, 10);
@@ -63,7 +63,7 @@ public class FeederShooter extends Subsystem {
 		
 		//Angle_motor.configAllowableClosedloopError(0, 0, 10);
 		
-		Angle_motor.setSensorPhase(false);
+		Angle_motor.setSensorPhase(true);
 		Angle_motor.setInverted(false);
 
 		Angle_motor.configNominalOutputForward(0, 10);
@@ -128,14 +128,14 @@ public class FeederShooter extends Subsystem {
 		boolean upperLimit = upperlimit.get();
 		boolean lowerLimit = lowerlimit.get();
 		positionTarget = position;
-		if ((upperLimit == true) || (lowerLimit == true)) {
+		if ((upperLimit == false) || (lowerLimit == false)) {
 			
-			if (upperLimit == true){
+			if (upperLimit == false){
 					if (positionTarget > Angle_motor.getSelectedSensorPosition(0)){
 						Angle_motor.set(ControlMode.Position, positionTarget);
 					}
 					else{
-						Angle_motor.set(ControlMode.Position, Angle_motor.getSelectedSensorPosition(0));
+						Angle_motor.set(ControlMode.PercentOutput, 0);
 					}
 			}
 			else{
@@ -143,7 +143,7 @@ public class FeederShooter extends Subsystem {
 						Angle_motor.set(ControlMode.Position, positionTarget);
 					}
 					else{
-						Angle_motor.set(ControlMode.Position, Angle_motor.getSelectedSensorPosition(0));
+						Angle_motor.set(ControlMode.PercentOutput, 0);
 					}
 				}
 			

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="org/usfirst/frc/team293/robot/subsystems/DriveTrain2.java" kind="src" path="src"/>
+	<classpathentry excluding="org/usfirst/frc/team293/robot/subsystems/DriveTrain2.java|org/usfirst/frc/team293/robot/subsystems/LEDs.java|org/usfirst/frc/team293/robot/commands/OpenPincherDetectCubeClosePincher.java|org/usfirst/frc/team293/robot/commands/FeedToExchange.java" kind="src" path="src"/>
 	<classpathentry kind="var" path="wpilib" sourcepath="wpilib.sources"/>
 	<classpathentry kind="var" path="networktables" sourcepath="ntcore.sources"/>
 	<classpathentry kind="var" path="opencv" sourcepath="opencv.sources"/>
