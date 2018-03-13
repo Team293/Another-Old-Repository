@@ -3,6 +3,7 @@ package org.usfirst.frc.team293.robot;
 
 import org.usfirst.frc.team293.robot.commands.AfterburnerAdjustable;
 import org.usfirst.frc.team293.robot.commands.AfterburnerFullThrottle;
+import org.usfirst.frc.team293.robot.commands.AfterburnerHalfThrottle;
 import org.usfirst.frc.team293.robot.commands.AfterburnerRPM;
 import org.usfirst.frc.team293.robot.commands.AfterburnerShoot;
 import org.usfirst.frc.team293.robot.commands.CalibrateFeeder;
@@ -18,11 +19,13 @@ import org.usfirst.frc.team293.robot.commands.FeederRPM;
 import org.usfirst.frc.team293.robot.commands.FeederRelease;
 import org.usfirst.frc.team293.robot.commands.FeederThrottle;
 import org.usfirst.frc.team293.robot.commands.FeedtoAfterburnerShoot;
+import org.usfirst.frc.team293.robot.commands.MoveAnglePower;
 import org.usfirst.frc.team293.robot.commands.ReleaseArm;
 import org.usfirst.frc.team293.robot.commands.ResetServo;
 import org.usfirst.frc.team293.robot.commands.Retract_Cylinder;
 //import org.usfirst.frc.team293.robot.commands.MoveServoJoystick;
 import org.usfirst.frc.team293.robot.commands.StopAfterburner;
+import org.usfirst.frc.team293.robot.commands.StopAngle;
 import org.usfirst.frc.team293.robot.commands.StopClimbing;
 import org.usfirst.frc.team293.robot.commands.StopFeeder;
 import org.usfirst.frc.team293.robot.commands.Unclimb;
@@ -99,8 +102,8 @@ public class OI {
 		button6.whenPressed(new FeederFullUp());
 		button2.whenPressed(new FeederAngle(0));
 		//button3.whileHeld(new FeedToUpperPosition());
-		button5.whileHeld(new FeederThrottle(1));
-		button3.whileHeld(new FeederRelease(-1));
+		button5.whileHeld(new FeederThrottle(.5));
+		button3.whileHeld(new FeederRelease(-.5));
 		button5.whenReleased(new StopFeeder());
 		button3.whenReleased(new StopFeeder());
 		button1.whileHeld(new Extend_Cylinder());
@@ -111,8 +114,9 @@ public class OI {
 		button10.whenPressed(new AfterburnerRPM(1));
 		button10.whenReleased(new StopAfterburner());
 		//button11.whenPressed(new LEDsTest());
+		button11.whenPressed(new AfterburnerHalfThrottle(.9));
 		button11.whenReleased(new StopAfterburner());
-		button12.whenPressed(new AfterburnerRPM(.4));
+		button12.whenPressed(new AfterburnerHalfThrottle(.7));
 		button12.whenReleased(new StopAfterburner());
 		button8.whileHeld(new Climb());
 		button8.whenReleased(new StopClimbing());
@@ -120,6 +124,8 @@ public class OI {
 		button7.whenReleased(new StopClimbing());
 		button211.whenPressed(new ReleaseArm());
 		button212.whenPressed(new ResetServo());
+		button21.whileHeld(new MoveAnglePower());
+		button21.whenReleased(new StopAngle());
 		
 		
 		//right[1].whileHeld(new MoveServoJoystick());

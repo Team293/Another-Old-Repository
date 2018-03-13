@@ -70,6 +70,8 @@ public class FeederShooter extends Subsystem {
 		Angle_motor.configNominalOutputReverse(0, 10);
 		Angle_motor.configPeakOutputForward(1, 10);
 		Angle_motor.configPeakOutputReverse(-1, 10);
+		//Angle_motor.enableCurrentLimit(true);
+		//Angle_motor.configContinuousCurrentLimit(8, 10);
 
 		//int absolutePosition = Angle_motor.getSensorCollection().getPulseWidthPosition();
 		/* mask out overflows, keep bottom 12 bits */
@@ -164,6 +166,9 @@ public class FeederShooter extends Subsystem {
 		System.out.println(Angle_motor.getSelectedSensorPosition(0));
 		}
 		//SmartDashboard.putNumber("", value)
+	}
+	public void moveAnglePower(double power){
+		Angle_motor.set(ControlMode.PercentOutput, power);
 	}
 	public boolean isInPosition(){
 		return(Math.abs(Angle_motor.getSelectedSensorPosition(0)-positionTarget)<=20);

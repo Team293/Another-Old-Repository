@@ -24,8 +24,8 @@ public class ReleaseArm extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.Release.move(.8);
-    	SmartDashboard.putNumber("servo", .8);
+    	Robot.Release.move(1);
+    	SmartDashboard.putNumber("servo", 1);
     	
     }
 

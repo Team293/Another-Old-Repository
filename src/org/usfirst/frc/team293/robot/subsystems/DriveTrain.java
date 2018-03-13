@@ -40,9 +40,16 @@ public class DriveTrain extends Subsystem {
 	double derivative;
 	double angle;
 	double offsetGyro;
+	double offset = 0;
+	boolean inPosition = false;
 	double leftRateSetpoint = 0.0;
 	double rightRateSetpoint = 0.0;
+	double initialL;
+	double initialR;
 	public boolean forward = true;
+	double velocityOffsetL;
+	double velocityOffsetR;
+	double angleOffset;
 	
 	public boolean imuStatus;
 	public boolean direction=false;
@@ -74,8 +81,8 @@ public class DriveTrain extends Subsystem {
 		leftEncoder.setDistancePerPulse(3.14/(128.0*3.0));//the amount of ticks to in...still have to find this from P
 		rightEncoder.setDistancePerPulse(3.14/(128.0*3.0));//the amount of ticks to in...still have to find this from P
 		
-		leftEncoder.setSamplesToAverage(3);
-		rightEncoder.setSamplesToAverage(3);
+		leftEncoder.setSamplesToAverage(5);
+		rightEncoder.setSamplesToAverage(5);
 	}
  
     public void initDefaultCommand() {       
@@ -86,7 +93,7 @@ public class DriveTrain extends Subsystem {
     public void tankdrive(double left, double right){
     	drive.tankDrive(left, right);  
     	double leftRate=leftEncoder.getRate();
-    	double rightRate=-rightEncoder.getRate();
+    	double rightRate=rightEncoder.getRate();
     	SmartDashboard.putNumber("leftEncoder", leftRate);
     	SmartDashboard.putNumber("rightEncoder", rightRate);
 	}
@@ -101,8 +108,20 @@ public class DriveTrain extends Subsystem {
     public void squaredReverseTankDrive(double left, double right){
     	drive.tankDrive(-left, -right,true);
     }
-    
-    
+    /*
+    public void encoderDriveRedo(double leftStick ,double rightStick){
+    	double leftRate=leftEncoder.getRate();
+    	double rightRate=rightEncoder.getRate();
+    	SmartDashboard.putNumber("leftEncoder", leftRate);
+    	SmartDashboard.putNumber("rightEncoder", rightRate);
+    	PigeonIMU.FusionStatus fusionStatus = new PigeonIMU.FusionStatus();
+    	SmartDashboard.putNumber("Pigeon", imu.getFusedHeading(fusionStatus));
+    	SmartDashboard.putNumber("leftRateSetpoint", leftRateSetpoint);
+    	
+    	
+    	SmartDashboard.putNumber("rightRateSetpoint", rightRateSetpoint);
+    }
+    */
     public void kennyDrive(double leftStick ,double rightStick){
     	
     	double leftRate=leftEncoder.getRate()/1000;
@@ -129,7 +148,7 @@ public class DriveTrain extends Subsystem {
     public void encoderDrive(double leftStick ,double rightStick){	
     	
     	double leftRate=leftEncoder.getRate();
-    	double rightRate=-rightEncoder.getRate();
+    	double rightRate=rightEncoder.getRate();
     	SmartDashboard.putNumber("leftEncoder", leftRate);
     	SmartDashboard.putNumber("rightEncoder", rightRate);
     	PigeonIMU.FusionStatus fusionStatus = new PigeonIMU.FusionStatus();
@@ -140,21 +159,21 @@ public class DriveTrain extends Subsystem {
     		leftRateSetpoint= 0; //125
     	}
     	else{
-    		leftRateSetpoint=-leftStick*12; //125
+    		leftRateSetpoint=leftStick*12; //125
     	}
     	if (Math.abs(rightStick) < .1){
     		rightRateSetpoint= 0; //125
     	}
     	else{
-    		rightRateSetpoint=-rightStick*12; //125
+    		rightRateSetpoint=rightStick*12; //125
     	}
     	
     	SmartDashboard.putNumber("leftRateSetpoint", leftRateSetpoint);
     	
     	
     	SmartDashboard.putNumber("rightRateSetpoint", rightRateSetpoint);
-    	double rightpowerOffset = -(rightRateSetpoint-rightRate)*0.02;
-    	double leftpowerOffset = -(leftRateSetpoint-leftRate)*0.02;
+    	double rightpowerOffset = (rightRateSetpoint-rightRate)*0.002;
+    	double leftpowerOffset = (leftRateSetpoint-leftRate)*0.002;
     	SmartDashboard.putNumber("leftoffset", leftpowerOffset);
     	SmartDashboard.putNumber("rightoffset", rightpowerOffset);
     	if (Math.abs(leftpowerOffset+leftPowerinitial)>1){
@@ -181,14 +200,14 @@ public class DriveTrain extends Subsystem {
     	else{
     		rightPower = rightpowerOffset+rightPowerinitial;
     	}
-    	drive.tankDrive(leftPower,rightPower);
+    	drive.tankDrive(leftStick,rightStick);
     	leftPowerinitial = leftPower;
     	rightPowerinitial = rightPower;
     }
     	//drive.tankDrive(-(leftRateSetpoint-leftRate)*0.319,-(rightRateSetpoint-rightRate)*0.319);
     public void feedForwardEncoderDrive(double leftStick ,double rightStick){
     	double leftRate=leftEncoder.getRate();
-    	double rightRate=-rightEncoder.getRate();
+    	double rightRate=rightEncoder.getRate();
     	SmartDashboard.putNumber("leftEncoder", leftRate);
     	SmartDashboard.putNumber("rightEncoder", rightRate);
     	PigeonIMU.FusionStatus fusionStatus = new PigeonIMU.FusionStatus();
@@ -199,23 +218,23 @@ public class DriveTrain extends Subsystem {
     		leftRateSetpoint= 0; //125
     	}
     	else{
-    		leftRateSetpoint=-leftStick*12.5; //125
+    		leftRateSetpoint=leftStick*12.5; //125
     	}
     	if (Math.abs(rightStick) < .1){
     		rightRateSetpoint= 0; //125
     	}
     	else{
-    		rightRateSetpoint=-rightStick*12.5; //125
+    		rightRateSetpoint=rightStick*12.5; //125
     	}
     	
     	SmartDashboard.putNumber("leftRateSetpoint", leftRateSetpoint);
     	
     	
     	SmartDashboard.putNumber("rightRateSetpoint", rightRateSetpoint);
-    	double rightpowerOffset = -(rightRateSetpoint-rightRate)*0.2;
-    	double leftpowerOffset = -(leftRateSetpoint-leftRate)*0.2;
-    	leftPowerinitial = -1.0*leftRateSetpoint/12.5;
-    	rightPowerinitial = -1.0*rightRateSetpoint/12.5;
+    	double rightpowerOffset = (rightRateSetpoint-rightRate)*0.2;
+    	double leftpowerOffset = (leftRateSetpoint-leftRate)*0.2;
+    	leftPowerinitial = 1.0*leftRateSetpoint/12.5;
+    	rightPowerinitial = 1.0*rightRateSetpoint/12.5;
     	SmartDashboard.putNumber("leftoffset", leftpowerOffset);
     	SmartDashboard.putNumber("rightoffset", rightpowerOffset);
     	if (Math.abs(leftpowerOffset+leftPowerinitial)>1){
@@ -266,6 +285,23 @@ public class DriveTrain extends Subsystem {
    
     	
     }
+    public boolean goStraightDistanceVelocity(double distance, double velocity){
+    	inPosition = false;
+    	
+    	PigeonIMU.FusionStatus fusionStatus = new PigeonIMU.FusionStatus();
+    	angle=imu.getFusedHeading(fusionStatus);
+    	velocityOffsetL = -(velocity - leftEncoder.getRate())*0.01;
+    	velocityOffsetR = (velocity - rightEncoder.getRate())*0.01;//(rightEncoder.getRate() + velocity)*.01;
+    	angleOffset = angle*.05;
+    	offset = (angle-setpoint)*.02;
+    	drive.tankDrive(initialL + velocityOffsetL + angleOffset ,initialR + velocityOffsetR);
+    	initialL = initialL + velocityOffsetL;
+    	initialR = initialR + velocityOffsetR;
+    	if (Math.signum(leftEncoder.getDistance()-distance) == 1){
+    	inPosition = false;	
+    	}
+    	return inPosition;
+    }
     
     public void resetGyro(){
     	imu.setFusedHeading(0.0, 0);
@@ -274,6 +310,10 @@ public class DriveTrain extends Subsystem {
     	setpoint=0;
     	error=0;
     	angle=0;
+    }
+    public void resetInitialPower(){
+    	initialL = 0;
+    	initialR = 0;
     }
     
     public void gyroStraight(double speed){
@@ -309,7 +349,20 @@ public class DriveTrain extends Subsystem {
         
         return turning;
     }
-    
+    public boolean newGyroTurnInPlace(double setangle){//assuming left forwards = -1 and backwards = 1
+    	inPosition = false;    	
+    	PigeonIMU.FusionStatus fusionStatus = new PigeonIMU.FusionStatus();
+    	angle=imu.getFusedHeading(fusionStatus);
+    	offset = (setangle - angle)*.01;
+    	drive.tankDrive(initialL-offset, initialR+offset);
+    	initialL = initialL+offset;
+    	initialR = initialR+offset;
+    	if (Math.abs(angle-setangle)<6){
+    		inPosition = true;
+    	}
+    		
+    	return inPosition;
+    }
     public boolean gyroTurnInPlace(double setangle, double rate){
     	turning=false;
     	PigeonIMU.FusionStatus fusionStatus = new PigeonIMU.FusionStatus();

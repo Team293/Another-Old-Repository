@@ -54,7 +54,7 @@ public class Afterburner extends Subsystem {
 	public void move(double power){
 		//L_motor.set(power);
 		//R_motor.set((-1)*power);
-		L_motor.set(ControlMode.PercentOutput, power);
+		L_motor.set(ControlMode.PercentOutput, -1*power);
 	//	SmartDashboard.putNumber("L_motor Current", );
 		//System.out.println("LeftpositionReadout" + L_motor.getSelectedSensorVelocity(0));
 	//	System.out.println("LeftVelocityReadout" + L_motor.getSelectedSensorVelocity(0));

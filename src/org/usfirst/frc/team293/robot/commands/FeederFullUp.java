@@ -35,7 +35,8 @@ public class FeederFullUp extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         if (Robot.Feeder.upperlimit.get() == false){
-        Robot.Feeder.Angle_motor.set(ControlMode.Position, Robot.Feeder.Angle_motor.getSelectedSensorPosition(0));	
+        //Robot.Feeder.Angle_motor.set(ControlMode.Position, Robot.Feeder.Angle_motor.getSelectedSensorPosition(0));
+        	Robot.Feeder.Angle_motor.set(ControlMode.PercentOutput, .05);
     	return (true);
         }
         return (false);
@@ -50,5 +51,6 @@ public class FeederFullUp extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	//new FeederFullDown();
     }
 }

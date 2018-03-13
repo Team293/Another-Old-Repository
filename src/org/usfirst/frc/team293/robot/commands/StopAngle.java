@@ -1,4 +1,4 @@
-package Autonomouses;
+package org.usfirst.frc.team293.robot.commands;
 
 import org.usfirst.frc.team293.robot.Robot;
 
@@ -7,27 +7,26 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
+public class StopAngle extends Command {
 
-
-public class ForwardDrive extends Command {
-	
-    public ForwardDrive() {
-        requires(Robot.TrainofDriving);
-    	setTimeout(4.5);
+    public StopAngle() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.Feeder);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.Feeder.moveAnglePower(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.TrainofDriving.tankdrive(.5, .5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return isTimedOut();
+        return true;
     }
 
     // Called once after isFinished returns true

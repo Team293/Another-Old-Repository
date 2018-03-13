@@ -9,6 +9,7 @@ package org.usfirst.frc.team293.robot;
 
 import org.usfirst.frc.team293.robot.commands.CalibrateFeeder;
 import org.usfirst.frc.team293.robot.commands.FeederThrottle;
+import org.usfirst.frc.team293.robot.commands.ForwardDrive;
 import org.usfirst.frc.team293.robot.subsystems.Afterburner;
 import org.usfirst.frc.team293.robot.subsystems.ClimberRelease;
 //import org.usfirst.frc.team293.robot.subsystems.ClimberRelease;
@@ -21,8 +22,10 @@ import org.usfirst.frc.team293.robot.subsystems.Winch;
 
 import com.analog.adis16448.frc.ADIS16448_IMU;
 
-import Autonomouses.ForwardDrive;
+import Autonomouses.MiddleToAutoLine;
+import Autonomouses.ToAutoLine;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -40,6 +43,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
+	public String gameData;
+	public static boolean switchLeft;
+	public boolean scaleLeft;
 	public static final Afterburner AfterburnerShooter
 	= new Afterburner();
 	public static final FeederShooter Feeder
@@ -79,7 +85,9 @@ public class Robot extends TimedRobot {
 		CameraServer.getInstance().startAutomaticCapture();
 		pdp.clearStickyFaults();
 		m_chooser.addDefault("Default Auto", m_autonomousCommand);
-		m_chooser.addObject("My Auto", new ForwardDrive());
+		m_chooser.addObject("To Auto Line", new ToAutoLine());
+		m_chooser.addObject("Mid To Auto Line", new MiddleToAutoLine());
+		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		 //moves feeder to reference point (upper limit switch), gets offset angle from encoder
 	}
@@ -112,9 +120,19 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if (gameData.length() > 0){
+			if (gameData.charAt(0) == 'L'){
+				switchLeft = true;	
+			}
+			else{
+				switchLeft = true;	
+			}
+		}
 		m_autonomousCommand = m_chooser.getSelected();
-
 		/*
+		
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
@@ -133,6 +151,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putBoolean("switchLeft?", switchLeft);
 		Scheduler.getInstance().run();
 	}
 
@@ -180,7 +199,8 @@ public class Robot extends TimedRobot {
 		 SmartDashboard.putBoolean("feederupper", Feeder.upperlimit.get());
 		 SmartDashboard.putBoolean("feederlower", Feeder.lowerlimit.get());
 		 SmartDashboard.putBoolean("FeederLimit", FeedSensors.getFeederLimit());
-		 SmartDashboard.putNumber("feederangle", (Robot.Feeder.Angle_motor.getSelectedSensorPosition(0)/2048.0*360.0));
+		 //SmartDashboard.putNumber("feederangle", (Robot.Feeder.Angle_motor.getSelectedSensorPosition(0)/2048.0*360.0));
+		 SmartDashboard.putNumber("feederangle", (Robot.Feeder.Angle_motor.getSelectedSensorPosition(0)));
 		Scheduler.getInstance().run();
 		}
 	
