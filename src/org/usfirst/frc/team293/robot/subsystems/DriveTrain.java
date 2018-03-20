@@ -218,23 +218,23 @@ public class DriveTrain extends Subsystem {
     		leftRateSetpoint= 0; //125
     	}
     	else{
-    		leftRateSetpoint=leftStick*12.5; //125
+    		leftRateSetpoint=leftStick*10; //125
     	}
     	if (Math.abs(rightStick) < .1){
     		rightRateSetpoint= 0; //125
     	}
     	else{
-    		rightRateSetpoint=rightStick*12.5; //125
+    		rightRateSetpoint=rightStick*10; //125
     	}
     	
     	SmartDashboard.putNumber("leftRateSetpoint", leftRateSetpoint);
     	
     	
     	SmartDashboard.putNumber("rightRateSetpoint", rightRateSetpoint);
-    	double rightpowerOffset = (rightRateSetpoint-rightRate)*0.2;
-    	double leftpowerOffset = (leftRateSetpoint-leftRate)*0.2;
+    	double rightpowerOffset = (rightRateSetpoint-rightRate)*0.05;
+    	double leftpowerOffset = (leftRateSetpoint-leftRate)*0.05;
     	leftPowerinitial = 1.0*leftRateSetpoint/12.5;
-    	rightPowerinitial = 1.0*rightRateSetpoint/12.5;
+    	rightPowerinitial = 1.0*rightRateSetpoint/10;
     	SmartDashboard.putNumber("leftoffset", leftpowerOffset);
     	SmartDashboard.putNumber("rightoffset", rightpowerOffset);
     	if (Math.abs(leftpowerOffset+leftPowerinitial)>1){

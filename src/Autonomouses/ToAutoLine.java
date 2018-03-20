@@ -16,7 +16,7 @@ public class ToAutoLine extends CommandGroup {
     	//if (Robot.switchLeft == false){
     		//addSequential(new TimedAngleMotor(.5));
     		//addSequential(new )
-    	}
+    	//}
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -35,3 +35,4 @@ public class ToAutoLine extends CommandGroup {
         // arm.
     }
 
+}
