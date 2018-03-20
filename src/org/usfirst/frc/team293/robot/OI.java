@@ -23,12 +23,15 @@ import org.usfirst.frc.team293.robot.commands.MoveAnglePower;
 import org.usfirst.frc.team293.robot.commands.ReleaseArm;
 import org.usfirst.frc.team293.robot.commands.ResetServo;
 import org.usfirst.frc.team293.robot.commands.Retract_Cylinder;
+import org.usfirst.frc.team293.robot.commands.RunAutoLogger;
+import org.usfirst.frc.team293.robot.commands.StopAutoLogger;
 //import org.usfirst.frc.team293.robot.commands.MoveServoJoystick;
 import org.usfirst.frc.team293.robot.commands.StopAfterburner;
 import org.usfirst.frc.team293.robot.commands.StopAngle;
 import org.usfirst.frc.team293.robot.commands.StopClimbing;
 import org.usfirst.frc.team293.robot.commands.StopFeeder;
 import org.usfirst.frc.team293.robot.commands.Unclimb;
+import org.usfirst.frc.team293.robot.commands.TankDriveAutoReplay;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -126,7 +129,10 @@ public class OI {
 		button212.whenPressed(new ResetServo());
 		button21.whileHeld(new MoveAnglePower());
 		button21.whenReleased(new StopAngle());
-		
+//		button22.toggleWhenPressed(new RunAutoLogger());
+		left[2].toggleWhenPressed(new RunAutoLogger());
+		left[3].whenPressed(new StopAutoLogger());
+		right[2].whenPressed(new TankDriveAutoReplay());
 		
 		//right[1].whileHeld(new MoveServoJoystick());
 		

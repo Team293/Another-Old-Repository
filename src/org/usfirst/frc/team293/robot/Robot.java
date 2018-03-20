@@ -10,6 +10,8 @@ package org.usfirst.frc.team293.robot;
 import org.usfirst.frc.team293.robot.commands.CalibrateFeeder;
 import org.usfirst.frc.team293.robot.commands.FeederThrottle;
 import org.usfirst.frc.team293.robot.commands.ForwardDrive;
+import org.usfirst.frc.team293.robot.commands.RunAutoLogger;
+import org.usfirst.frc.team293.robot.commands.StopAutoLogger;
 import org.usfirst.frc.team293.robot.subsystems.Afterburner;
 import org.usfirst.frc.team293.robot.subsystems.ClimberRelease;
 //import org.usfirst.frc.team293.robot.subsystems.ClimberRelease;
@@ -19,6 +21,7 @@ import org.usfirst.frc.team293.robot.subsystems.FeederShooter;
 //import org.usfirst.frc.team293.robot.subsystems.LEDs;
 import org.usfirst.frc.team293.robot.subsystems.Pincher;
 import org.usfirst.frc.team293.robot.subsystems.Winch;
+import org.usfirst.frc.team293.robot.subsystems.autoLogger;
 
 import com.analog.adis16448.frc.ADIS16448_IMU;
 
@@ -65,6 +68,7 @@ public class Robot extends TimedRobot {
 	public static final Winch Climber = new Winch();
 //	public static final LEDs LED= new LEDs();
 	public static final ADIS16448_IMU imu = new ADIS16448_IMU();
+	public static final autoLogger DataLog = new autoLogger();
 	public boolean stop = false;
 	//public static final CameraServer DriverFPV
 	//=new CameraServer();
@@ -73,6 +77,7 @@ public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
 	Command calibrationCommand;
+	//Command log;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	/**
@@ -84,6 +89,7 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		CameraServer.getInstance().startAutomaticCapture();
 		pdp.clearStickyFaults();
+		// Add choices to the DriverStation for autonomous modes
 		m_chooser.addDefault("Default Auto", m_autonomousCommand);
 		m_chooser.addObject("To Auto Line", new ToAutoLine());
 		m_chooser.addObject("Mid To Auto Line", new MiddleToAutoLine());
@@ -120,7 +126,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		
+		// Get the field data about switch and scale colors
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if (gameData.length() > 0){
 			if (gameData.charAt(0) == 'L'){
@@ -130,6 +136,7 @@ public class Robot extends TimedRobot {
 				switchLeft = true;	
 			}
 		}
+		// Get the selected autonomous mode from the DS
 		m_autonomousCommand = m_chooser.getSelected();
 		/*
 		
@@ -163,6 +170,8 @@ public class Robot extends TimedRobot {
 		// this line or comment it out.
 		calibrationCommand = new CalibrateFeeder();
 		calibrationCommand.start();
+		//log = new RunAutoLogger();
+		//log.start();
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
@@ -180,7 +189,7 @@ public class Robot extends TimedRobot {
 		
 		SmartDashboard.putNumber("Feeder Direction", OI.leftStick.getThrottle());
 		SmartDashboard.putNumber("LeftDrive1Current", pdp.getCurrent(15));
-		/*SmartDashboard.putNumber("Gyro-X", imu.getAngleX());
+		SmartDashboard.putNumber("Gyro-X", imu.getAngleX());
 	    SmartDashboard.putNumber("Gyro-Y", imu.getAngleY());
 	    SmartDashboard.putNumber("Gyro-Z", imu.getAngleZ());
 	    SmartDashboard.putNumber("Gyro-Z", imu.getAngleZ());
@@ -194,7 +203,7 @@ public class Robot extends TimedRobot {
 	    
 	    SmartDashboard.putNumber("Pressure: ", imu.getBarometricPressure());
 	    SmartDashboard.putNumber("Temperature: ", imu.getTemperature()); 
-		*/
+		
 		// SmartDashboard.putBoolean("Photoswitch", FeedSensors.getPhotoSwitch());
 		 SmartDashboard.putBoolean("feederupper", Feeder.upperlimit.get());
 		 SmartDashboard.putBoolean("feederlower", Feeder.lowerlimit.get());
